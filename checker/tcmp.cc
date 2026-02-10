@@ -1,29 +1,34 @@
 #include "testlib.h"
- 
 using namespace std;
- 
+
 int main(int argc, char** argv) {
-    setName("token compare");
+    setName("pomodoro score");
     registerTestlibCmd(argc, argv);
- 
-    int n = 0;
-    string j, p;
- 
-    for (; !ans.seekEof() && !ouf.seekEof(); ) {
-        ++n;
- 
-        ans.readWordTo(j);
-        ouf.readWordTo(p);
-        
-        if (j != p) quitf(_wa, "%d%s words differ - expected: '%s', found: '%s'", n, englishEnding(n).c_str(), compress(j).c_str(), compress(p).c_str());
+
+    const string TRI = "\xE2\x96\xB3"; // "△" (U+25B3) in UTF-8
+
+    string name = inf.readWord();
+    int expect = 0;
+
+    while (!inf.seekEof()) {
+        string t = inf.readWord();
+        if (t == "O") expect += 3;
+        else if (t == TRI) expect += 2;
+        else if (t == "X") expect += 1;
+        else quitf(_fail, "Invalid token in input: '%s'", compress(t).c_str());
     }
- 
-    if (ans.seekEof() && ouf.seekEof()) {
-        if (n == 1) quitf(_ok, "\"%s\"", compress(j).c_str());
-        else quitf(_ok, "%d tokens", n);
-    }
-    else {
-        if (ans.seekEof()) quitf(_wa, "Participant output contains extra tokens");
-        else quitf(_wa, "Unexpected EOF in the participants output");
-    }
+
+    string outName = ouf.readWord();
+    if (outName != name)
+        quitf(_wa, "Name differs - expected: '%s', found: '%s'",
+              compress(name).c_str(), compress(outName).c_str());
+
+    int outScore = ouf.readInt();
+    if (outScore != expect)
+        quitf(_wa, "Score differs - expected: %d, found: %d", expect, outScore);
+
+    ouf.skipBlanks();
+    if (!ouf.seekEof()) quitf(_wa, "Participant output contains extra tokens");
+
+    quitf(_ok, "%s %d", compress(name).c_str(), expect);
 }
