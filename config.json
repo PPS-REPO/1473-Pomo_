@@ -24,22 +24,22 @@
         {
             "name": "solution.cc",
             "language": "cpp11",
-            "type": "MCS"
+            "type": ""
         },
         {
             "name": "solution_wa.cc",
             "language": "cpp11",
-            "type": "WA"
+            "type": ""
         },
         {
             "name": "solution.py",
             "language": "py3",
-            "type": "AC"
+            "type": "MCS/AC"
         },
         {
             "name": "solution_heuristic.cc",
             "language": "cpp11",
-            "type": "AC/WA"
+            "type": ""
         }
     ],
     "generators": [
