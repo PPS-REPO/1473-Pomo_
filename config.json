@@ -24,7 +24,7 @@
         {
             "name": "solution.py",
             "language": "py3",
-            "type": "MCS/AC"
+            "type": "MCS"
         }
     ],
     "generators": [
