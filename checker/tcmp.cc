@@ -5,7 +5,7 @@ int main(int argc, char** argv) {
     setName("pomodoro score");
     registerTestlibCmd(argc, argv);
 
-    const string TRI = "\xE2\x96\xB3"; // "△" (U+25B3) in UTF-8
+    const string TRI = "△"; // "△" (U+25B3) in UTF-8
 
     string name = inf.readWord();
     int expect = 0;
@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
     while (!inf.seekEof()) {
         string t = inf.readWord();
         if (t == "O") expect += 3;
-        else if (t == TRI) expect += 2;
+        else if (t == "△") expect += 2;
         else if (t == "X") expect += 1;
         else quitf(_fail, "Invalid token in input: '%s'", compress(t).c_str());
     }
